@@ -1,27 +1,19 @@
 #!/usr/bin/python3
-''' solving the island perimeter problem '''
+"""
+Island Perimeter:
+    returns the perimeter of the island described in grid
+"""
 
 
 def island_perimeter(grid):
-    '''container function for dfs'''
-    visited = set()
-
-    def dfs(i, j):
-        '''dfs implementation'''
-        if i >= len(grid) or j >= len(grid[0]) or \
-            i < 0 or j < 0 or grid[i][j] == 0:
-            return 1
-        if (i, j) in visited:
-            return 0
-
-        visited.add((i, j))
-        perimeter = dfs(i, j + 1)
-        perimeter += dfs(i + 1, j)
-        perimeter += dfs(i, j - 1)
-        perimeter += dfs(i - 1, j)
-        return perimeter
-
+    """island perimenter function"""
+    perimeter = 0
     for i in range(len(grid)):
-        for j in range(len(grid[0])):
-            if grid[i][j]:
-                return dfs(i, j)
+        for j in range(len(grid[i])):
+            if grid[i][j] == 1:
+                perimeter += 4
+                if i > 0 and grid[i-1][j] == 1:
+                    perimeter -= 2
+                if j > 0 and grid[i][j-1] == 1:
+                    perimeter -= 2
+    return perimeter
